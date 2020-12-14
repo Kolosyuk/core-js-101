@@ -135,8 +135,12 @@ function isTriangle(a, b, c) {
  *   { top:20, left:20, width: 20, height: 20 }    =>  false
  *
  */
-function doRectanglesOverlap(/* rect1, rect2 */) {
-  throw new Error('Not implemented');
+function doRectanglesOverlap(rect1, rect2) {
+  let res = true;
+  if (rect2.top > rect1.top + rect1.height || rect2.left > rect1.left + rect1.width) {
+    res = false;
+  }
+  return res;
 }
 
 
@@ -166,8 +170,8 @@ function doRectanglesOverlap(/* rect1, rect2 */) {
  *   { center: { x:0, y:0 }, radius:10 },  { x:10, y:10 }   => false
  *
  */
-function isInsideCircle(/* circle, point */) {
-  throw new Error('Not implemented');
+function isInsideCircle(circle, point) {
+  return (point.x - circle.center.x) ** 2 + (point.y - circle.center.y) ** 2 < circle.radius ** 2;
 }
 
 
@@ -330,8 +334,26 @@ function getDigitalRoot(num) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  throw new Error('Not implemented');
+function isBracketsBalanced(str) {
+  const stack = [];
+  const brackets = {
+    '[': ']',
+    '{': '}',
+    '(': ')',
+    '<': '>',
+  };
+
+  for (let i = 0; i < str.split('').length; i += 1) {
+    if (stack[0] === str[i]) {
+      stack.shift();
+    } else if (brackets[str[i]]) {
+      stack.unshift(brackets[str[i]]);
+    } else {
+      return false;
+    }
+  }
+
+  return stack.length === 0;
 }
 
 
